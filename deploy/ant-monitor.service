@@ -1,0 +1,17 @@
+[Unit]
+Description=Anthropic (ANT / ANTUSDT) Real-Time Price & News Telegram Monitor
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/ant-monitor
+EnvironmentFile=/opt/ant-monitor/.env
+ExecStart=/opt/ant-monitor/.venv/bin/python -m ant_monitor
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
