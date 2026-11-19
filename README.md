@@ -44,10 +44,9 @@ sudo systemctl enable --now ant-monitor
 sudo journalctl -u ant-monitor -f
 ```
 
-### Облачный запуск на GitHub Actions (без VPS)
+### Облачный запуск на GitHub Actions (только с self-hosted non-US runner)
 
-В репозитории настроен workflow [`.github/workflows/monitor.yml`](.github/workflows/monitor.yml) (`schedule: "*/5 * * * *"` + `workflow_dispatch`), который каждые ~5 минут запускает `python -m ant_monitor --once` на облачных раннерах GitHub.  
-Для работы достаточно добавить в **Settings → Secrets and variables → Actions** два секрета:
+В репозитории есть workflow [`.github/workflows/monitor.yml`](.github/workflows/monitor.yml) (`workflow_dispatch`, а `schedule` закомментирован по умолчанию). Стандартные раннеры GitHub находятся в США, поэтому Binance Futures отдаёт им `HTTP 451`. Для запуска через Actions используйте self-hosted runner в ЕС/Азии с добавленными секретами:
 - `TELEGRAM_BOT_TOKEN`
 - `TELEGRAM_CHAT_ID`
 
