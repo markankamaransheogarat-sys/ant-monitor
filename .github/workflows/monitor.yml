@@ -1,0 +1,37 @@
+name: ANT Monitor Cloud Cron
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ant-monitor-cron
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+      - name: Install ant-monitor
+        run: pip install .
+      - name: Run ANT Monitor snapshot & Telegram delivery
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          ENTRY_PRICE: "106.5"
+          LIQUIDATION_PRICE: "77.0"
+          ALERT_LOW_THRESHOLD: "85.0"
+          ALERT_HIGH_THRESHOLD: "110.0"
+          IPO_REFERENCE_PRICE: "83.0"
+          NEWS_WINDOW_MINUTES: "15"
+        run: python -m ant_monitor --once

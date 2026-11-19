@@ -44,6 +44,13 @@ sudo systemctl enable --now ant-monitor
 sudo journalctl -u ant-monitor -f
 ```
 
+### Облачный запуск на GitHub Actions (без VPS)
+
+В репозитории настроен workflow [`.github/workflows/monitor.yml`](.github/workflows/monitor.yml) (`schedule: "*/5 * * * *"` + `workflow_dispatch`), который каждые ~5 минут запускает `python -m ant_monitor --once` на облачных раннерах GitHub.  
+Для работы достаточно добавить в **Settings → Secrets and variables → Actions** два секрета:
+- `TELEGRAM_BOT_TOKEN`
+- `TELEGRAM_CHAT_ID`
+
 ## Переменные окружения (`.env`)
 
 | Переменная | По умолчанию | Описание |

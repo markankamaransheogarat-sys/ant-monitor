@@ -41,6 +41,15 @@ class TelegramClient:
                 logger.error("Telegram API returned error payload: %s", data)
                 return False
             return True
+        except httpx.HTTPStatusError as exc:
+            logger.error(
+                "Telegram sendMessage HTTP %s: %s",
+                exc.response.status_code,
+                exc.response.text,
+            )
+            return False
         except (httpx.HTTPError, ValueError, TypeError) as exc:
-            logger.error("Telegram sendMessage failed: %s", exc)
+            logger.error(
+                "Telegram sendMessage failed (%s): %s", type(exc).__name__, exc
+            )
             return False
