@@ -58,6 +58,12 @@ def test_config_validation_enforces_http_timeout_and_telegram() -> None:
     missing_tg.validate(require_telegram=False)
 
 
+def test_config_reads_proxy_url_from_env(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("PROXY_URL", "http://127.0.0.1:8080")
+    cfg = MonitorConfig.from_env()
+    assert cfg.proxy_url == "http://127.0.0.1:8080"
+
+
 @pytest.mark.asyncio
 async def test_service_sends_startup_message_even_if_one_source_raises() -> None:
     cfg = MonitorConfig(

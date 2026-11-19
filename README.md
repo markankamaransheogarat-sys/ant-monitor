@@ -60,6 +60,7 @@ sudo journalctl -u ant-monitor -f
 | `HTTP_TIMEOUT_SECONDS` | `5.0` | Максимальный таймаут каждого HTTP-запроса (<= 5 сек) |
 | `FINNHUB_API_KEY` | `""` | Опциональный резервный ключ Finnhub |
 | `POLYGON_API_KEY` | `""` | Опциональный резервный ключ Polygon.io |
+| `PROXY_URL` | `""` | Опциональный HTTP/HTTPS proxy для `httpx` |
 | `LOG_FILE` | `monitor.log` | Файл логов с ротацией (5 МБ × 5 файлов) |
 
 ## Тесты

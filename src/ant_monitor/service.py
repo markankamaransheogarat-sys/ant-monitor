@@ -230,8 +230,9 @@ async def run_from_config(
     """Instantiate HTTP clients and run either a single check or the background daemon."""
     config.validate(require_telegram=not dry_run)
     timeout = httpx.Timeout(config.http_timeout_seconds)
+    proxy = config.proxy_url or None
 
-    async with httpx.AsyncClient(timeout=timeout) as http_client:
+    async with httpx.AsyncClient(timeout=timeout, proxy=proxy) as http_client:
         binance_client = BinanceFuturesClient(http_client, symbol=config.binance_symbol)
         nasdaq_client = NasdaqSpotClient(
             http_client=http_client,

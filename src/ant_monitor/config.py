@@ -48,6 +48,7 @@ class MonitorConfig:
     news_rss_url: str = DEFAULT_RSS_URL
     finnhub_api_key: str = ""
     polygon_api_key: str = ""
+    proxy_url: str = ""
     log_file: str = "monitor.log"
     log_level: str = "INFO"
 
@@ -93,6 +94,7 @@ class MonitorConfig:
             or DEFAULT_RSS_URL,
             finnhub_api_key=os.getenv("FINNHUB_API_KEY", "").strip(),
             polygon_api_key=os.getenv("POLYGON_API_KEY", "").strip(),
+            proxy_url=os.getenv("PROXY_URL", "").strip(),
             log_file=os.getenv("LOG_FILE", "monitor.log").strip() or "monitor.log",
             log_level=os.getenv("LOG_LEVEL", "INFO").strip().upper() or "INFO",
         )
